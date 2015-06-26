@@ -1,0 +1,50 @@
+extends layout
+
+block content
+  h1= imgName + ' from ' + gallery
+
+  p
+    img(src="#{imgPath}")
+    p= 'likes: ' + likes
+    p
+      a(href="/gallery/#{gallery}/#{imgId}/like/up") Up
+    p  
+      a(href="/gallery/#{gallery}/#{imgId}/like/down") Down
+
+  form(method="POST", action="/gallery/#{gallery}/#{imgId}/tag")
+    p add tag:
+    p
+      input(type="text", name="tags")
+    p
+      button Add tag
+
+  if tags.length > 0
+    ul
+      each tag in tags
+        li
+          p= '<' + tag + '>'
+          p
+            a(href="/gallery/#{gallery}/#{imgId}/deletetag/#{tag}") delete tag
+  else
+    p no tags specified
+
+  form(method="POST", action="/gallery/#{gallery}/#{imgId}/comment")
+    p add comment:
+    p
+      input(type="text", name="comment")
+    p
+      button Add comment
+
+  if comments.length > 0
+    ul
+      each comment in comments
+        li
+          p= comment.body
+          p from
+          p= comment.date
+          p
+            a(href="/gallery/#{gallery}/#{imgId}/deletecomment/#{comment._id}") delete comment
+  else
+    p no comments left
+
+

@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1 Galleries of images
+
+  form(method="POST")
+    p Gallery name:
+    p
+      input(type="text", name="name")
+    p
+      button Add
+
+  if galleries.length > 0
+    ul
+      each gallery in galleries
+        li
+          h2= gallery.name
+          p
+            a(href="/gallery/#{gallery.name}") View
+          p
+            a(href="/delete/#{gallery.name}") Delete
+  else
+    p no galleries found

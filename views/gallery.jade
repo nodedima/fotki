@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= galleryName
+
+  form(method="POST", enctype="multipart/form-data")
+    p Select image:
+    p
+      input(type="file", name="uploadImg")
+    p
+      button Add image
+
+  if images.length > 0
+    ul
+      each image in images
+        li
+          p= image.path
+          p
+            img(src="#{image.path}", style="width: 50px; height: 50px;")
+          p
+            a(href="/gallery/#{galleryName}/#{image._id}") View
+          p
+            a(href="/gallery/#{galleryName}/delete/#{image._id}") Delete
+  else
+    p no images found
